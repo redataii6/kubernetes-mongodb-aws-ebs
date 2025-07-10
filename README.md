@@ -35,3 +35,21 @@ mongo-cm (ConfigMap)	Stores DB connection URL
 mongo-express (Deploy)	Web UI deployment
 mongo-express-svc (Svc)	External access (NodePort 31000)
 
+
+📂 File Deployment Order
+secret.yaml (MongoDB credentials)
+
+mongodb-sc.yaml (StorageClass for EBS volumes)
+
+mongodb-pvc.yaml (PersistentVolumeClaim - depends on SC)
+
+mongodb-app.yaml (MongoDB Deployment - needs PVC & Secret)
+
+mongodb-svc.yaml (MongoDB Service - internal cluster IP)
+
+mongodb-cm.yaml (ConfigMap for Mongo-Express connection URL)
+
+mongo-express-app.yaml (Mongo-Express Deployment - needs ConfigMap & Secret)
+
+mongo-express-svc.yaml (LoadBalancer/NodePort for external access)
+
